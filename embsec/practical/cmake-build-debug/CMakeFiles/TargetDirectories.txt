@@ -1,0 +1,3 @@
+/Users/randomletters/Documents/bwsi/embsec/practical/cmake-build-debug/CMakeFiles/practical.dir
+/Users/randomletters/Documents/bwsi/embsec/practical/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/randomletters/Documents/bwsi/embsec/practical/cmake-build-debug/CMakeFiles/rebuild_cache.dir
