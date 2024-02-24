@@ -47,15 +47,12 @@ void getUserInput(char *buffer) {
 
 /* DEFINE FOR STEP 2 */
 void parseInput(char *buffer, pkt_t *pkt) {
-
-  // Determine the length of the data in the buffer (check out
-  // https://man7.org/linux/man-pages/man3/strlen.3.html) <code here>
+  // Determine the length of the data in the buffer
   pkt->dataLen = strlen(buffer);
 
   // Set the pkt data pointer at your input buffer
-  // <code here>
-
   pkt->data = buffer;
+
   // Calculate checksum byte for the data.
   // The checksum is a byte stored in the pkt header.
   // When you perform a xor operation on the checksum byte
@@ -72,33 +69,21 @@ void parseInput(char *buffer, pkt_t *pkt) {
   //  data bytes xor checksum = 0 0 0 0  0 0 0 0
   //
   // (hint: you should use a loop here)
-  // <code here>
 
   uint8_t checksum = 0;
   for(int i = 0; i < strlen(buffer); i++) {
     checksum ^= buffer[i];
   }
 
-//  checksum = ~checksum;
-
-    uint8_t check_checksum = checksum;
-    for(int i = 0; i < strlen(buffer); i++) {
-        check_checksum ^= buffer[i];
-    }
-
-    printf("%hhu", check_checksum);
-
   pkt->checksum = checksum;
 
   // Set the length of the pkt header
   // (hint: check out the pkt_t struct definition)
-  // <code here>
-  pkt->hdrLen = sizeof(pkt->checksum);
+  pkt->hdrLen = sizeof(pkt->checksum) + 2;
 }
 
 /* DEFINE FOR STEP 4 */
 void printPacket(uint8_t *buffer, uint16_t bufSize) {
-
   // The format of the output string should be as follows:
   // Bytes should be in uppercase hex format (0x00 - 0xFF) with a space between
   // them. For example, the string "abc" would be represented as "0x61 0x62

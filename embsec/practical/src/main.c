@@ -86,7 +86,7 @@ int main() {
   // malloc (https://man7.org/linux/man-pages/man3/malloc.3.html) to create a
   // pointer to a new buffer of the correct size (hdrLen + dataLen) <code here>
 
-  uint16_t size = pkt->dataLen + pkt->hdrLen;
+  uint16_t size = pkt->hdrLen + pkt->dataLen;
   uint8_t* pkt_buffer = malloc(size);
 
   // Transfer data from the pkt struct we built into this new buffer
@@ -100,7 +100,9 @@ int main() {
   // [https://man7.org/linux/man-pages/man3/memcpy.3.html], you may have to copy
   // struct fields over individually, think about why?) <code here>
 
-  memcpy(pkt_buffer, &pkt->checksum, pkt->hdrLen);
+  memcpy(pkt_buffer, &pkt->hdrLen, 1);
+  memcpy(pkt_buffer + 1, &pkt->checksum, pkt->hdrLen);
+  memcpy(pkt_buffer + 2, &pkt->dataLen, 1);
   memcpy(pkt_buffer + pkt->hdrLen, pkt->data, pkt->dataLen);
 
   /* END STEP 3: Your packet should now be loaded into a buffer of continuous
